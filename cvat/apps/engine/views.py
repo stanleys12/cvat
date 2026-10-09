@@ -2028,7 +2028,7 @@ class TaskViewSet(
         db_data.chapters = chapters
 
         serializer = DataMetaReadSerializer(db_data, context={"task": db_task})
-        return Response(serializer.data)
+        return Response(dict(serializer.data))
 
     @extend_schema(exclude=True)
     @action(detail=True, methods=["GET"], serializer_class=None, url_path="dataset")
@@ -2822,7 +2822,7 @@ class JobViewSet(
         db_data.chapters = chapters
 
         serializer = DataMetaReadSerializer(db_data, context={"task": db_task})
-        return Response(serializer.data)
+        return Response(dict(serializer.data))
 
     @extend_schema(
         summary="Get a preview image for a job",

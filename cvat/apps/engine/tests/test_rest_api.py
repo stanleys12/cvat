@@ -542,6 +542,13 @@ class JobDataMetaPartialUpdateAPITestCase(ApiTestBase):
             res2 = self.client.get(f"/api/tasks/{self.task.id}")
             self.assertLess(res.data["updated_date"], res2.data["updated_date"])
 
+    def test_api_v1_jobs_data_meta_browsable_api(self):
+        with ForceLogin(self.admin, self.client):
+            response = self.client.get(
+                f"/api/jobs/{self.job.id}/data/meta", HTTP_ACCEPT="text/html"
+            )
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
 
 class AssetCreateAPITestCase(ApiTestBase):
     @classmethod
@@ -2868,6 +2875,13 @@ class TaskDataMetaPartialUpdateAPITestCase(ApiTestBase):
             self.client.patch(f"/api/tasks/{self.tasks[0].id}/data/meta", data=data, format="json")
             res2 = self.client.get(f"/api/tasks/{self.tasks[0].id}")
             self.assertLess(res.data["updated_date"], res2.data["updated_date"])
+
+    def test_api_v1_tasks_data_meta_browsable_api(self):
+        with ForceLogin(self.admin, self.client):
+            response = self.client.get(
+                f"/api/tasks/{self.tasks[0].id}/data/meta", HTTP_ACCEPT="text/html"
+            )
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
 class TaskUpdateLabelsAPITestCase(UpdateLabelsAPITestCase):
